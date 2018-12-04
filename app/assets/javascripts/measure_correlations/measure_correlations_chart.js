@@ -17,7 +17,6 @@ function formatData(serverResponse){
     });
     const measureList = Object.values(_.invert(measureIndexes))
 
-    console.log(_.invert(measureIndexes)['0']);
     return {
         data: data,
         measures: measureList
