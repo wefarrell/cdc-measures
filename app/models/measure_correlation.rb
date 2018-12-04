@@ -1,0 +1,2 @@
+class MeasureCorrelation < ApplicationRecord
+end

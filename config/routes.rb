@@ -1,3 +1,5 @@
 Rails.application.routes.draw do
-  root to: 'visitors#index'
+  resources :city_measures, only: [:index]
+  resources :measure_correlations, only: [:index]
+  root to: 'city_measures#index'
 end

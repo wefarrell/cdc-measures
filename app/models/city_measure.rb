@@ -1,0 +1,2 @@
+class CityMeasure < ApplicationRecord
+end
