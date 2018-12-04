@@ -7,7 +7,12 @@ class BuildCityMeasuresTableService
   end
 
   def measure_columns
-    query = 'SELECT DISTINCT short_question_text from cdc_dataset ORDER BY short_question_text'
+    query = <<-SQL
+      SELECT DISTINCT short_question_text 
+      FROM #{source_table}
+      WHERE category IN ('Health Outcomes', 'Unhealthy Behaviors')
+      ORDER BY short_question_text
+    SQL
     connection.execute(query).pluck('short_question_text').map{ |question|
       question.parameterize.underscore
     }
@@ -21,7 +26,7 @@ class BuildCityMeasuresTableService
         short_question_text,
         data_value::float
       FROM #{source_table}
-      WHERE data_value_type = 'Age-adjusted prevalence'
+      WHERE category IN ('Health Outcomes', 'Unhealthy Behaviors')
       ORDER BY 1,2
       $$) AS #{source_table}(unique_id VARCHAR, #{column_definitions.join(',')})
     SQL

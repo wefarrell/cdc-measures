@@ -34,8 +34,8 @@ function buildChart(results) {
             marginTop: 40,
             marginBottom: 80,
             plotBorderWidth: 1,
-            height: 1000,
-            width: 1600
+            height: 768,
+            width: 1024
         },
 
         title: {
