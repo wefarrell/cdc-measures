@@ -8,10 +8,16 @@ class LoadDatasetToDbService
   end
 
   def load_dataset_to_db
-    query = <<-SQL
-      COPY #{table_name}(#{columns.join(',')}) 
-      FROM \'#{file.path}\' DELIMITER ',' CSV HEADER;
+    connection = ActiveRecord::Base.connection.raw_connection
+    connection.exec <<-SQL
+      COPY #{table_name}(#{columns.join(',')})
+      FROM STDIN DELIMITER ',' CSV HEADER;
     SQL
-    ActiveRecord::Base.connection.execute(query)
+    connection.put_copy_data(File.read(file.path))
+    connection.put_copy_end
+
+    while res = connection.get_result
+      raise res.error_message unless res.error_message.blank?
+    end
   end
 end

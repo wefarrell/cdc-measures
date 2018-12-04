@@ -13,7 +13,7 @@ class BuildMeasureCorrelationsTableService
         WITH measure_names AS (SELECT column_name
           FROM information_schema.columns
           WHERE table_name  = '#{source_table}'
-          AND column_name != 'city_name'
+          AND column_name != 'unique_id'
         )
         SELECT
           t1.column_name AS measure_1,

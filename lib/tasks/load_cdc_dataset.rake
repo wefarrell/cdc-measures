@@ -12,9 +12,13 @@ task load_cdc_dataset: :environment  do
   city_measures_table_builder = BuildCityMeasuresTableService.new(RAW_CSV_TABLE_NAME, CITY_MEASURES_TABLE_NAME)
   correlations_table_builder = BuildMeasureCorrelationsTableService.new(CITY_MEASURES_TABLE_NAME, CORRELTATIONS_TABLE_NAME)
   ActiveRecord::Base.transaction do
+    puts 'creating table'
     raw_table_builder.create_table
+    puts 'loading dataset into table'
     data_loader.load_dataset_to_db
+    puts 'building city measures table'
     city_measures_table_builder.create_table
+    puts 'building correlations table'
     correlations_table_builder.create_table
   end
 end
