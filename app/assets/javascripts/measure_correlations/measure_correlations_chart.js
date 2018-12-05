@@ -26,8 +26,6 @@ function formatData(serverResponse){
 function buildChart(results) {
     const params = formatData(results)
 
-
-
     Highcharts.chart('chart-container', {
         chart: {
             type: 'heatmap',
