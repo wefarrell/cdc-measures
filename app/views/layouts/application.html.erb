@@ -6,19 +6,13 @@
     <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "Cdc Measures" %>">
     <%= stylesheet_link_tag 'application', media: 'all' %>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.11/lodash.js"></script>
-    <%= javascript_include_tag 'application' %>
+
+        <%= javascript_include_tag 'application' %>
     <%= csrf_meta_tags %>
   </head>
   <body>
-    <header>
-      <%= render 'layouts/navigation' %>
-    </header>
-    <main role="main">
-       <%= render 'layouts/messages' %>
-       <%= yield %>
-    </main>
+    <%= yield %>
   </body>
   <script src="https://code.highcharts.com/highcharts.js"></script>
   <script src="https://code.highcharts.com/modules/heatmap.js"></script>
-
 </html>

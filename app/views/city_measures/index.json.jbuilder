@@ -1,0 +1,1 @@
+json.array! @city_measures
