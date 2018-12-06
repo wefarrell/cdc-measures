@@ -1,5 +1,5 @@
 (function(){
-
+    let measureLabels = null;
     if(window.location.href.indexOf("measure_correlations") > -1) {
         $.get('/measure_correlations.json', buildChart)
     }
@@ -8,7 +8,6 @@
         let measureIndexes = {}
         function toIndex(measure){
             if(measureIndexes[measure] == undefined){
-                console.log(measure, Object.keys(measureIndexes).length)
                 measureIndexes[measure] = Object.keys(measureIndexes).length
             }
             return measureIndexes[measure]
@@ -27,8 +26,13 @@
         }
     }
 
+    $(document).on('measures_loaded', (e, labels) => {
+        measureLabels = labels
+    });
+
     function buildChart(results) {
-        const params = formatData(results)
+        const params = formatData(results);
+        const categories = params.measures.map( (measure) => measureLabels[measure] )
 
         Highcharts.chart('chart-container', {
             chart: {
@@ -45,11 +49,11 @@
             },
 
             xAxis: {
-                categories: params.measures
+                categories: categories
             },
 
             yAxis: {
-                categories: params.measures,
+                categories: categories,
                 title: null
             },
             plotOptions: {

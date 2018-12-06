@@ -21,7 +21,7 @@ function initMap (){
 
     const infoWindow = new google.maps.InfoWindow;
     const loadShapes = new Promise((resolve, reject) => {
-        $.getJSON(dataUrls.censusTracts, function (result) {
+        $.getJSON(dataUrls.censusTracts, (result) => {
             const censusTracts = result.features.map((tract) => {
                 const coords = _.flatten(tract.geometry.coordinates[0]).map((coords) => {
                     return {lng: coords[0], lat: coords[1]}
@@ -47,7 +47,7 @@ function initMap (){
     });
 
     const loadMeasureLabels = new Promise((resolve, reject) => {
-        $(document).on('measures_loaded', function(e, measures){
+        $(document).on('measures_loaded', (e, measures) => {
             const options = _.map(measures, (label, value) => `<option value="${value}">${label}</option>`)
             $selectMeasure.append(options)
             resolve(measures)
